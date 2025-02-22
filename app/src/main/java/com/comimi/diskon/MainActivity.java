@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Validasi input tidak boleh kosong
         if (TextUtils.isEmpty(hargaInput) || TextUtils.isEmpty(diskonInput)) {
-            txtError.setText("Harap isi harga dan diskon dengan benar!");
+            txtError.setText("Harga dan diskon tidak boleh kosong!");
             txtError.setVisibility(View.VISIBLE);
             return;
         }
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             if (diskon < 0 || diskon > 100) {
                 txtError.setText("Diskon harus antara 0% - 100%");
                 txtError.setVisibility(View.VISIBLE);
+                nOverviewDiskon.setText("");
+                nOverviewHarga.setText("");
                 return;
             }
 
@@ -68,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
             double hargaAkhir = harga - nilaiDiskon;
 
             // Menampilkan hasil perhitungan
-            nOverviewDiskon.setText(String.format(Locale.getDefault(), "Nilai Diskon: Rp %.2f", nilaiDiskon));
-            nOverviewHarga.setText(String.format(Locale.getDefault(), "Harga Akhir: Rp %.2f", hargaAkhir));
+            nOverviewDiskon.setText(String.format(Locale.getDefault(), "%.2f", nilaiDiskon));
+            nOverviewHarga.setText(String.format(Locale.getDefault(), "%.2f", hargaAkhir));
             // Sembunyikan error & tampilkan hasil
             txtError.setText("");
             cardHasil.setVisibility(View.VISIBLE);
@@ -87,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Sembunyikan error dan hasil perhitungan
         txtError.setText("");
-        nOverviewDiskon.setText("Nilai Diskon");
-        nOverviewHarga.setText("Harga Akhir");
+        nOverviewDiskon.setText("");
+        nOverviewHarga.setText("");
     }
 }

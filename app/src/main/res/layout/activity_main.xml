@@ -189,34 +189,55 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg_hasil"
-            android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp">
 
-            <TextView
-                android:id="@+id/nOverviewDiskon"
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_textview"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/nDiskonLayout"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:hint="@string/nDiskonLayout"
+                android:textColorHint="#959595"
+                app:boxStrokeColor="#CCCCCC"
+                app:boxStrokeWidth="1dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true">
 
-            <TextView
-                android:id="@+id/nOverviewHarga"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nOverviewDiskon"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_textview"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="12dp"
+                    android:textColor="#333333"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/bg_textview"
-                android:gravity="center"
-                android:padding="12dp"
-                android:text="@string/nHargaLayout"
-                android:textColor="#333333"
-                android:textSize="18sp"
-                android:textStyle="bold" />
+                android:hint="@string/nHargaLayout"
+                android:textColorHint="#959595"
+                app:boxStrokeColor="#CCCCCC"
+                app:boxStrokeWidth="1dp"
+                app:hintAnimationEnabled="true"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/nOverviewHarga"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bg_textview"
+                    android:focusable="false"
+                    android:inputType="none"
+                    android:padding="12dp"
+                    android:textColor="#333333"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.textfield.TextInputLayout>
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>
