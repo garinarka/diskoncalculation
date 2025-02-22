@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
             nOverviewDiskon.setText(String.format(Locale.getDefault(), "Nilai Diskon: Rp %.2f", nilaiDiskon));
             nOverviewHarga.setText(String.format(Locale.getDefault(), "Harga Akhir: Rp %.2f", hargaAkhir));
             // Sembunyikan error & tampilkan hasil
-            txtError.setVisibility(View.GONE);
+            txtError.setText("");
             cardHasil.setVisibility(View.VISIBLE);
 
         } catch (NumberFormatException e) {
@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         nDiskon.setText("");
 
         // Sembunyikan error dan hasil perhitungan
-        txtError.setVisibility(View.GONE);
+        txtError.setText("");
         nOverviewDiskon.setText("Nilai Diskon");
         nOverviewHarga.setText("Harga Akhir");
     }
