@@ -56,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
             double harga = Double.parseDouble(hargaInput);
             double diskon = Double.parseDouble(diskonInput);
 
+            // Validasi harga harus lebih dari 0
+            if (harga <= 0) {
+                txtError.setText("Harga harus lebih dari 0");
+                txtError.setVisibility(View.VISIBLE);
+                nOverviewDiskon.setText("");
+                nOverviewHarga.setText("");
+                return;
+            }
+
             // Validasi diskon dalam rentang 0 - 100%
             if (diskon < 0 || diskon > 100) {
                 txtError.setText("Diskon harus antara 0% - 100%");
