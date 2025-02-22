@@ -4,138 +4,223 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center_vertical"
+    android:background="#F5F5F5"
     tools:context=".MainActivity">
 
-    <LinearLayout
-        android:id="@+id/nHeaderLayout"
-        android:layout_width="match_parent"
+    <!-- Header -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/headerCard"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#0057D9"
+        app:cardCornerRadius="24dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/nHeader"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_header"
-            android:minHeight="48dp"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="38sp" />
-    </LinearLayout>
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
 
-    <LinearLayout
-        android:id="@+id/nKalkulasi"
-        android:layout_width="match_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/app_name"
+                android:textColor="#FFFFFF"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView untuk Input Harga -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHarga"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nHeaderLayout">
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCard">
 
         <LinearLayout
-            android:id="@+id/nHitungan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:layout_marginBottom="24dp"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nHarga"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/nHarga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
                 android:hint="@string/nHarga"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:minHeight="48dp"
-                android:textAlignment="center"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:padding="10dp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView untuk Input Diskon -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardDiskon"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardHarga">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nDiskon"
+                android:textColor="#333333"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/nDiskon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/editbox_background"
+                android:drawableEnd="@drawable/ic_percent"
                 android:hint="@string/nDiskon"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:minHeight="48dp"
-                android:textAlignment="center"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/buttonInput"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/nButton"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/buttonClear"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/buttonInput"
-                android:layout_marginTop="20dp"
-                android:text="@string/nClear" />
-
+                android:padding="10dp" />
         </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Layout untuk mengelompokkan Button Hitung dan Clear -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/btnInput"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cardDiskon">
+
+        <!-- Button untuk Menghitung -->
+        <Button
+            android:id="@+id/buttonInput"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:backgroundTint="#0057D9"
+            android:padding="12dp"
+            android:text="@string/nButton"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/buttonClear"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Button kecil untuk Clear -->
+        <Button
+            android:id="@+id/buttonClear"
+            android:layout_width="96dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="2dp"
+            android:backgroundTint="#D32F2F"
+            android:text="@string/nClear"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/buttonInput"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- TextView untuk Menampilkan Peringatan/Error -->
+    <TextView
+        android:id="@+id/txtError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#D32F2F"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@id/cardHasil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnInput" />
+
+    <!-- CardView untuk Hasil Akhir -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHasil"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardElevation="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtError">
 
         <LinearLayout
-            android:id="@+id/nOverview"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_hasil"
+            android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintTop_toBottomOf="@id/nHeaderLayout">
+            android:padding="16dp">
 
             <TextView
-                android:id="@+id/nHargaLayout"
+                android:id="@+id/nOverviewDiskon"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/nHargaLayout"
-                android:textAlignment="center"
-                android:textSize="20sp" />
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_textview"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/nDiskonLayout"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/nOverviewHarga"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/nRupiah"
-                android:textAlignment="center"
-                android:textSize="18sp" />
+                android:layout_marginTop="8dp"
+                android:background="@drawable/bg_textview"
+                android:gravity="center"
+                android:padding="12dp"
+                android:text="@string/nHargaLayout"
+                android:textColor="#333333"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/nDiskonLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/nDiskonLayout"
-                    android:textAlignment="center"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/nOverviewDiskon"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:text="@string/nRupiah"
-                    android:textAlignment="center"
-                    android:textSize="18sp" />
-            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

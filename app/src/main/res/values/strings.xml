@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Kalkulasi Diskon</string>
     <string name="nHarga">Masukkan Harga</string>
-    <string name="nHargaLayout">Nilai Diskon</string>
+    <string name="nDiskonLayout">Nilai Diskon</string>
     <string name="nDiskon">Masukkan Diskon</string>
-    <string name="nDiskonLayout">Harga Setelah Diskon</string>
+    <string name="nHargaLayout">Harga Akhir</string>
     <string name="nButton">Hitung</string>
     <string name="nRupiah">Rp.</string>
     <string name="nClear">CLEAR</string>

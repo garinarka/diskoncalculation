@@ -1,72 +1,93 @@
 package com.comimi.diskon;
 
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+
+import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
-    Button check, clear;
-    EditText hargaInput, diskonInput;
-    TextView nHarga, nDiskon;
+
+    private EditText nHarga, nDiskon;
+    private TextView nOverviewDiskon, nOverviewHarga, txtError;
+    private CardView cardHasil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        check = findViewById(R.id.buttonInput);
-        clear = findViewById(R.id.buttonClear);
-        hargaInput = findViewById(R.id.nHarga);
-        diskonInput = findViewById(R.id.nDiskon);
-        nHarga = findViewById(R.id.nOverviewHarga);
-        nDiskon = findViewById(R.id.nOverviewDiskon);
+        // Inisialisasi View
+        nHarga = findViewById(R.id.nHarga);
+        nDiskon = findViewById(R.id.nDiskon);
+        nOverviewDiskon = findViewById(R.id.nOverviewDiskon);
+        nOverviewHarga = findViewById(R.id.nOverviewHarga);
+        txtError = findViewById(R.id.txtError);
+        cardHasil = findViewById(R.id.cardHasil);
+        Button btnInput = findViewById(R.id.buttonInput);
+        Button btnClear = findViewById(R.id.buttonClear);
 
-        check.setOnClickListener(view -> totalHarga());
+        // Event saat tombol dihitung ditekan
+        btnInput.setOnClickListener(v -> hitungHargaAkhir());
 
-        clear.setOnClickListener(view -> clearHistory());
+        // Event saat tombol clear ditekan
+        btnClear.setOnClickListener(v -> clearInput());
     }
 
-    public void totalHarga() {
-        String hargaStr = hargaInput.getText().toString();
-        String diskonStr = diskonInput.getText().toString();
+    private void hitungHargaAkhir() {
+        String hargaInput = nHarga.getText().toString();
+        String diskonInput = nDiskon.getText().toString();
 
-        if (hargaStr.isEmpty() || diskonStr.isEmpty()) {
-            Toast.makeText(this, "Harga dan Diskon tidak boleh kosong", Toast.LENGTH_SHORT).show();
+        // Validasi input tidak boleh kosong
+        if (TextUtils.isEmpty(hargaInput) || TextUtils.isEmpty(diskonInput)) {
+            txtError.setText("Harap isi harga dan diskon dengan benar!");
+            txtError.setVisibility(View.VISIBLE);
             return;
         }
 
         try {
-            double harga = Double.parseDouble(hargaStr);
-            double diskon = Double.parseDouble(diskonStr);
+            // Konversi input ke angka
+            double harga = Double.parseDouble(hargaInput);
+            double diskon = Double.parseDouble(diskonInput);
 
-            if (harga <= 0) {
-                Toast.makeText(this, "Harga harus lebih besar dari 0", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
+            // Validasi diskon dalam rentang 0 - 100%
             if (diskon < 0 || diskon > 100) {
-                Toast.makeText(this, "Diskon harus antara 0 dan 100", Toast.LENGTH_SHORT).show();
+                txtError.setText("Diskon harus antara 0% - 100%");
+                txtError.setVisibility(View.VISIBLE);
                 return;
             }
 
-            double diskonHarga = harga * diskon / 100;
-            double totHarga = harga - (diskonHarga);
+            // Hitung nilai diskon dan harga akhir
+            double nilaiDiskon = (diskon / 100) * harga;
+            double hargaAkhir = harga - nilaiDiskon;
 
-            nHarga.setText("Rp. " + diskonHarga);
-            nDiskon.setText("Rp. " + totHarga);
+            // Menampilkan hasil perhitungan
+            nOverviewDiskon.setText(String.format(Locale.getDefault(), "Nilai Diskon: Rp %.2f", nilaiDiskon));
+            nOverviewHarga.setText(String.format(Locale.getDefault(), "Harga Akhir: Rp %.2f", hargaAkhir));
+            // Sembunyikan error & tampilkan hasil
+            txtError.setVisibility(View.GONE);
+            cardHasil.setVisibility(View.VISIBLE);
+
         } catch (NumberFormatException e) {
-            Toast.makeText(this, "Input tidak valid", Toast.LENGTH_SHORT).show();
+            txtError.setText("Masukkan angka yang valid!");
+            txtError.setVisibility(View.VISIBLE);
         }
     }
 
-    public void clearHistory() {
-        hargaInput.setText("");
-        diskonInput.setText("");
-        nHarga.setText("Rp.");
-        nDiskon.setText("Rp.");
+    private void clearInput() {
+        // Mengosongkan input harga dan diskon
+        nHarga.setText("");
+        nDiskon.setText("");
+
+        // Sembunyikan error dan hasil perhitungan
+        txtError.setVisibility(View.GONE);
+        nOverviewDiskon.setText("Nilai Diskon");
+        nOverviewHarga.setText("Harga Akhir");
     }
 }
