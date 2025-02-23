@@ -1,6 +1,8 @@
 package com.comimi.diskon;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -10,6 +12,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import java.text.NumberFormat;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
@@ -38,11 +41,18 @@ public class MainActivity extends AppCompatActivity {
 
         // Event saat tombol clear ditekan
         btnClear.setOnClickListener(v -> clearInput());
+
+        // Menambahkan TextWatcher untuk nHarga
+        nHarga.addTextChangedListener(new NumberTextWatcher(nHarga));
+        // Menambahkan TextWatcher untuk nOverviewDiskon
+        nOverviewDiskon.addTextChangedListener(new NumberTextWatcher(nOverviewDiskon));
+        // Menambahkan TextWatcher untuk nOverviewHarga
+        nOverviewHarga.addTextChangedListener(new NumberTextWatcher(nOverviewHarga));
     }
 
     private void hitungHargaAkhir() {
-        String hargaInput = nHarga.getText().toString();
-        String diskonInput = nDiskon.getText().toString();
+        String hargaInput = nHarga.getText().toString().replaceAll("\\D", ""); // Menghapus format
+        String diskonInput = nDiskon.getText().toString().replaceAll("\\D", ""); // Menghapus format
 
         // Validasi input tidak boleh kosong
         if (TextUtils.isEmpty(hargaInput) || TextUtils.isEmpty(diskonInput)) {
@@ -78,9 +88,9 @@ public class MainActivity extends AppCompatActivity {
             double nilaiDiskon = (diskon / 100) * harga;
             double hargaAkhir = harga - nilaiDiskon;
 
-            // Menampilkan hasil perhitungan
-            nOverviewDiskon.setText(String.format(Locale.getDefault(), "%.2f", nilaiDiskon));
-            nOverviewHarga.setText(String.format(Locale.getDefault(), "%.2f", hargaAkhir));
+            // Menampilkan hasil perhitungan dengan format pemisah ribuan
+            nOverviewDiskon.setText(String.valueOf(nilaiDiskon));
+            nOverviewHarga.setText(String.valueOf(hargaAkhir));
             // Sembunyikan error & tampilkan hasil
             txtError.setText("");
             cardHasil.setVisibility(View.VISIBLE);
@@ -100,5 +110,44 @@ public class MainActivity extends AppCompatActivity {
         txtError.setText("");
         nOverviewDiskon.setText("");
         nOverviewHarga.setText("");
+    }
+
+    private static class NumberTextWatcher implements TextWatcher {
+        private final TextView textView;
+
+        public NumberTextWatcher(TextView textView) {
+            this.textView = textView;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            // Tidak perlu melakukan apa-apa di sini
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            // Tidak perlu melakukan apa-apa di sini
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            if (s.length() == 0) return;
+
+            // Menghapus listener untuk mencegah loop tak terbatas
+            textView.removeTextChangedListener(this);
+
+            // Mengonversi string ke angka
+            String input = s.toString().replaceAll("\\D", "");
+            if (!input.isEmpty()) {
+                double parsed = Double.parseDouble(input);
+                // Memformat angka dengan pemisah ribuan
+                String formatted = NumberFormat.getInstance(Locale.getDefault()).format(parsed);
+                // Mengatur teks yang diformat ke TextView
+                textView.setText(formatted);
+            }
+
+            // Menambahkan kembali listener
+            textView.addTextChangedListener(this);
+        }
     }
 }
